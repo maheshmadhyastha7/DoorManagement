@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoorManagementSystem", "DoorManagementSystem\DoorManagementSystem.csproj", "{8B3D4126-63D6-462D-932D-0F4F5F0C355D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorManagementService", "DoorManagementService\DoorManagementService.csproj", "{72759894-6DC6-49CB-A70A-E91804036F51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B3D4126-63D6-462D-932D-0F4F5F0C355D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B3D4126-63D6-462D-932D-0F4F5F0C355D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B3D4126-63D6-462D-932D-0F4F5F0C355D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3D4126-63D6-462D-932D-0F4F5F0C355D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72759894-6DC6-49CB-A70A-E91804036F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72759894-6DC6-49CB-A70A-E91804036F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72759894-6DC6-49CB-A70A-E91804036F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72759894-6DC6-49CB-A70A-E91804036F51}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E3D60F3-185B-4FA3-A4D9-CD8255C964EF}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,103 @@
+﻿<Window x:Class="DoorManagementSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoorManagementSystem"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Visibility="Collapsed">
+            
+        </StackPanel>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Door Name" Margin="10" Padding="10"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Door.Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" Padding="2" Name="TextBoxDoorName"  IsEnabled="{Binding IsLabelEnabled,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Door State" Margin="10" Padding="10"/>
+        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding Door.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" Padding="2" Name="CheckBoxDoorOpened" IsEnabled="{Binding IsEnabled,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            <CheckBox.Style>
+                <Style TargetType="CheckBox">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True" >
+                            <Setter Property="Content" Value="Opened" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="False" >
+                            <Setter Property="Content" Value="Closed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </CheckBox.Style>
+        </CheckBox>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Door Lock State" Margin="10" Padding="10"/>
+        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Door.IsLocked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" Padding="2" Name="CheckBoxDoorLocked" IsEnabled="{Binding IsEnabled,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            <CheckBox.Style>
+                <Style TargetType="CheckBox">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True" >
+                            <Setter Property="Content" Value="Locked" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="False" >
+                            <Setter Property="Content" Value="Unlocked" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </CheckBox.Style>
+        </CheckBox>
+
+
+        <Button Grid.Row="3" Grid.Column="1" Width="100" Height="25" Content="Add New Door" Name="ButtonAddNewDoor" Visibility="{Binding IsAddVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding Path=AddDoorCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                CommandParameter="{Binding Door, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Grid.Row="3" Grid.Column="0" Width="100" Height="25" Content="Configure Door" Name="ButtonConfigureDoor"
+                Command="{Binding Path=ConfigureCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsConfigureVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Grid.Row="3" Grid.Column="1" Width="100" Height="25" Content="Review Door" Name="ButtonViewDoor" Visibility="{Binding IsReviewVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding Path=ReviewDoorCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                CommandParameter="{Binding ElementName=DataGrid,Path=SelectedItem}"/>
+
+        <Button Grid.Row="3" Grid.Column="1" Width="100" Height="25" Content="Update Door" Name="ButtonUpdateDoor" Visibility="{Binding IsUpdateVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding Path=UpdateDoorCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                CommandParameter="{Binding Door,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Grid.Row="3" Grid.Column="2" Width="100" Height="25" Content="Control Door" Name="ButtonControlDoor"
+                Command="{Binding Path=ControlDoorCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                CommandParameter="{Binding ElementName=DataGrid,Path=SelectedItem}" Visibility="{Binding IsControlVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Grid.Row="3" Grid.Column="2" Width="100" Height="25" Content="Cancel" Name="ButtonCancelDoor" Command="{Binding Path=CancelCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Visibility="{Binding IsCancelVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+
+        <DataGrid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible"
+                  ItemsSource="{Binding Path=DoorIdList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                  AutoGenerateColumns="False" Name="DataGrid" Background="LightGray" RowBackground="LightYellow" AlternatingRowBackground="LightBlue" 
+                  GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserSortColumns="False" SelectionMode="Single" CanUserReorderColumns="False" CanUserResizeColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="250" Header="Door Id" Binding="{Binding}"/>
+                <DataGridTemplateColumn Width="120" Header="Delete Door">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="100" Height="25" Content="Delete" Margin="5" Command="{Binding Path=DataContext.RemoveDoorCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window},UpdateSourceTrigger=PropertyChanged}" 
+                CommandParameter="{Binding}" Visibility="{Binding DataContext.IsDeleteVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
